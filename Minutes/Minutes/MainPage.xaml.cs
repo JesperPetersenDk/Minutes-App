@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Minutes.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +17,15 @@ namespace Minutes
         public MainPage()
         {
             InitializeComponent();
+
+            entries.ItemTapped += OnItemTapped;
+        }
+
+        //Fejl her havde TASK i stedet for VOID xD
+        private async void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            NoteEntry item = e.Item as NoteEntry;
+            await Navigation.PushAsync(new NoteEntryEditPage(item));
         }
 
         protected override async void OnAppearing()

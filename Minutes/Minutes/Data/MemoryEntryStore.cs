@@ -10,24 +10,36 @@ namespace Minutes.Data
     {
         private readonly Dictionary<string, NoteEntry> entries = new Dictionary<string, NoteEntry>();
 
-        public Task<IEnumerable<NoteEntry>> GetAllAsync()
-        {
-            IEnumerable<NoteEntry> result = entries.Values.ToList();
-            return Task.FromResult(result);
-        }
-
         public Task AddAsync(NoteEntry entry)
         {
             entries.Add(entry.Id, entry);
             return Task.CompletedTask;
         }
 
-        //public Task<NoteEntry> GetByIdAsync(string id)
-        //{
-        //    NoteEntry entry = null;
-        //    entries.TryGetValue(id, out entry);
-        //    return Task.FromResult(entry);
-        //}
+
+        public Task<IEnumerable<NoteEntry>> GetAllAsync()
+        {
+            IEnumerable<NoteEntry> result = entries.Values.ToList();
+            return Task.FromResult(result);
+        }
+
+        public Task<NoteEntry> GetByIdAsync(string id)
+        {
+            NoteEntry entry = null;
+            entries.TryGetValue(id, out entry);
+            return Task.FromResult(entry);
+        }
+
+        public Task UpdateAsync(NoteEntry entry)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAsync(NoteEntry entry)
+        {
+            entries.Remove(entry.Id);
+            return Task.CompletedTask;
+        }
 
 
     }

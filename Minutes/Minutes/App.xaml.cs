@@ -17,7 +17,11 @@ namespace Minutes
             Entries = new MemoryEntryStore();
             Entries.LoadMockData();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage())
+            {
+                BarBackgroundColor = Color.FromHex("#3498db"),
+                BarTextColor = Color.White
+            };
         }
 
         protected override void OnStart()
