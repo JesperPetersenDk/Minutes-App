@@ -32,5 +32,15 @@ namespace Minutes
             }
         }
 
+        private async void OnDeleteEntry(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Delete Entry", $"Are you sure you want to delete the entry {Title}?", "Yes", "No"))
+            {
+                await App.Entries.DeleteAsync(entry);
+                entry = null; // deleted!
+                await Navigation.PopAsync();
+            }
+        }
+
     }
 }
