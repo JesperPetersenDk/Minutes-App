@@ -22,5 +22,15 @@ namespace Minutes
         }
 
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (Device.Idiom == TargetIdiom.Desktop
+                || Device.Idiom == TargetIdiom.Tablet)
+            {
+                textEditor.Focus();
+            }
+        }
+
     }
 }

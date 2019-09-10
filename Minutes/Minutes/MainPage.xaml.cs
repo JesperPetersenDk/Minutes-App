@@ -14,11 +14,13 @@ namespace Minutes
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private string entryText;
         public MainPage()
         {
             InitializeComponent();
 
             entries.ItemTapped += OnItemTapped;
+            newEntry.Completed += onAddNewEntry;
         }
 
         //Fejl her havde TASK i stedet for VOID xD
@@ -32,6 +34,19 @@ namespace Minutes
         {
             base.OnAppearing();
             entries.ItemsSource = await App.Entries.GetAllAsync();
+        }
+
+        private async void onAddNewEntry(object sender, EventArgs e)
+        {
+            entryText = newEntry.Text;
+            if (entryText != string.Empty)
+            {
+                NoteEntry entry = new NoteEntry { Title = entryText };
+                await App.Entries.AddAsync(entry);
+                await Navigation.PushAsync(new NoteEntryEditPage(entry));
+                newEntry.Text = string.Empty;
+
+            }
         }
 
     }
